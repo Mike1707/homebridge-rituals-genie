@@ -1,16 +1,17 @@
 {
   "private": true,
-  "displayName": "Plugin Name",
-  "name": "homebridge-plugin-name",
+  "displayName": "Homebridge Rituals Genie",
+  "name": "homebridge-rituals-genie",
   "version": "1.0.0",
-  "description": "A short description about what your plugin does.",
+  "description": "Homebridge Rituals Genie Plugin.",
   "license": "Apache-2.0",
+  "author": "Mike Langendorf",
   "repository": {
     "type": "git",
-    "url": "git://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+    "url": "git://github.com/Mike1707/homebridge-rituals-genie.git"
   },
   "bugs": {
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+    "url": "https://github.com/Mike1707/homebridge-rituals-genie/issues"
   },
   "engines": {
     "node": ">=14.18.1",
@@ -24,7 +25,15 @@
     "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "homebridge",
+    "homebridge-rituals",
+    "homebridge-genie",
+    "homebridge-rituals-genie",
+    "rituals",
+    "genie",
+    "homebridge-plugin-rituals",
+    "homekit"
   ],
   "dependencies": {},
   "devDependencies": {

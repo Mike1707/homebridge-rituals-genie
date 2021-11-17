@@ -1,6 +1,6 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
-  "pluginType": "platform",
+  "pluginAlias": "Homebridge Rituals Genie",
+  "pluginType": "accessory",
   "singular": true,
   "schema": {
     "type": "object",
@@ -9,7 +9,19 @@
         "title": "Name",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": "The name of your Accessory"
+      },
+      "email": {
+        "title": "E-Mail",
+        "type": "string",
+        "required": true,
+        "default": "Your e-mail address"
+      },
+      "password": {
+        "title": "Password",
+        "type": "string",
+        "required": true,
+        "default": "Your password"
       }
     }
   }
