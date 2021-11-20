@@ -1,6 +1,5 @@
 {
   "private": true,
-  "displayName": "Homebridge Rituals Genie",
   "name": "homebridge-rituals-genie",
   "version": "1.0.0",
   "description": "Homebridge Rituals Genie Plugin.",

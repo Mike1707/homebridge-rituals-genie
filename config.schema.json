@@ -1,6 +1,6 @@
 {
   "pluginAlias": "Homebridge Rituals Genie",
-  "pluginType": "accessory",
+  "pluginType": "platform",
   "singular": true,
   "schema": {
     "type": "object",
