@@ -29,6 +29,7 @@ export class RitualsGeniePlatform implements DynamicPlatformPlugin {
     private accountHash?: string;
     private hubHash?: string;
     hub?: Hub;
+    lastHubState?: Date;
 
     constructor(
         public readonly log: Logger,
@@ -183,7 +184,7 @@ export class RitualsGeniePlatform implements DynamicPlatformPlugin {
         }
     }
 
-    private async getStateForHub() {
+    public async getStateForHub() {
 
         try {
             const response = await fetch(`${API_BASE_URL}/api/account/hub/${this.hubHash}`, {
@@ -200,6 +201,7 @@ export class RitualsGeniePlatform implements DynamicPlatformPlugin {
                 if (hubResponse != null && hubResponse.hub != null) {
                     this.log.info('HubResponse found!');
                     this.hub = hubResponse.hub;
+                    this.lastHubState = new Date();
                 } else {
                     this.log.error('No hubs found! Response is null');
                 }

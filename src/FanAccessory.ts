@@ -18,7 +18,7 @@ export class FanAccessory {
             .setCharacteristic(this.platform.Characteristic.SerialNumber, this.platform.hub?.hublot ?? '')
             .setCharacteristic(this.platform.Characteristic.FirmwareRevision, this.platform.hub?.sensors?.versionc ?? '');
 
-        // set filter maintanance
+        // set filter maintenance
         // this.accessory.getService(this.platform.Service.FilterMaintenance)!
         //     .setCharacteristic(this.platform.Characteristic.FilterChangeIndication, this.platform.Characteristic.FilterChangeIndication.FILTER_OK)
         //     .setCharacteristic(this.platform.Characteristic.Name, this.platform.hub?.sensors?.rfidc?.title ?? '');
@@ -46,6 +46,9 @@ export class FanAccessory {
     }
 
     async getOn(): Promise<CharacteristicValue> {
+        if (this.platform.lastHubState && new Date().getTime() - this.platform.lastHubState.getTime() > 60000) {
+            await this.platform.getStateForHub();
+        }
         const isOn = this.platform.hub?.attributes.fanc == '1' ?? false;
         this.platform.log.info('Get Characteristic On ->', isOn);
         return isOn;
@@ -76,8 +79,11 @@ export class FanAccessory {
         if (this.platform.hub?.attributes.fanc == '0') {
             return 0;
         } else {
+            if (this.platform.lastHubState && new Date().getTime() - this.platform.lastHubState.getTime() > 60000) {
+                await this.platform.getStateForHub();
+            }
             const apiFanSpeed = this.platform.hub?.attributes.speedc;
-            let fanSpeed = 0;
+            let fanSpeed: number;
             switch (apiFanSpeed) {
                 case '1':
                     fanSpeed = 33;
