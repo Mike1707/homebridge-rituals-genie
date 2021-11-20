@@ -1,5 +1,8 @@
 export interface Attributes {
-    roomnamec: string[];
+    roomc?: string;
+    speedc?: string;
+    fanc?: string;
+    resetc?: string;
 }
 
 export interface Wific {
@@ -11,6 +14,23 @@ export interface Wific {
     image: string;
     discover_image: string;
     discover_url?: string;
+    min_value: string;
+    max_value: string;
+    interval: string;
+    created_at: string;
+    updated_at: string;
+    default: number;
+}
+
+export interface Fillc {
+    id: number;
+    sensor_id: number;
+    title: string;
+    description: string;
+    icon: string;
+    image: string;
+    discover_image: string;
+    discover_url: string;
     min_value: string;
     max_value: string;
     interval: string;
@@ -36,10 +56,51 @@ export interface Rfidc {
     default: number;
 }
 
+export interface Rpsc {
+    id: number;
+    sensor_id: number;
+    title: string;
+    description: string;
+    icon: string;
+    image: string;
+    discover_image: string;
+    discover_url?: string;
+    min_value: string;
+    max_value: string;
+    interval: string;
+    created_at: string;
+    updated_at: string;
+    default: number;
+}
+
+export interface Onlinec {
+    id: number;
+    sensor_id: number;
+    title: string;
+    description: string;
+    icon: string;
+    image: string;
+    discover_image: string;
+    discover_url?: string;
+    min_value: string;
+    max_value: string;
+    interval: string;
+    created_at: string;
+    updated_at: string;
+    default: number;
+}
+
 export interface Sensors {
     wific: Wific;
+    fillc?: Fillc;
     rfidc: Rfidc;
     versionc: string;
+    ipc?: string;
+    rpsc?: Rpsc;
+    resetc?: string;
+    chipidc?: string;
+    errorc?: string;
+    onlinec?: Onlinec;
 }
 
 export interface Hub {
@@ -50,7 +111,7 @@ export interface Hub {
     current_time: string;
     ping_update: string;
     attributes: Attributes;
-    sensors: Sensors;
+    sensors?: Sensors;
 }
 
 export interface HubResponse {
