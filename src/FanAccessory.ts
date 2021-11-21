@@ -32,9 +32,10 @@ export class FanAccessory {
 
         this.service.getCharacteristic(this.platform.Characteristic.RotationSpeed)
             .setProps({
-                minStep: 33,
+                minStep: 100 / 3,
                 minValue: 0,
                 maxValue: 100,
+                validValues: [0, 100 / 3, (100 / 3) * 2, 100],
             })
             .onSet(this.setFanSpeed.bind(this))
             .onGet(this.getFanSpeed.bind(this));
@@ -46,9 +47,10 @@ export class FanAccessory {
     }
 
     async getOn(): Promise<CharacteristicValue> {
-        if (this.platform.lastHubState && new Date().getTime() - this.platform.lastHubState.getTime() > 60000) {
-            await this.platform.getStateForHub();
-        }
+        await this.platform.getStateForHub();
+        // if (this.platform.lastHubState && new Date().getTime() - this.platform.lastHubState.getTime() > 60000) {
+        //     await this.platform.getStateForHub();
+        // }
         const isOn = this.platform.hub?.attributes.fanc == '1' ?? false;
         this.platform.log.info('Get Characteristic On ->', isOn);
         return isOn;
@@ -58,14 +60,14 @@ export class FanAccessory {
         this.platform.log.info('Fan Speed Value Start ->', value);
         if (this.platform.hub?.attributes.fanc == '1') {
             let apiFanSpeed = this.platform.hub?.attributes.speedc ?? '1';
-            if (value <= 33) {
+            if (value <= 100 / 3) {
                 this.platform.log.info('Fan Speed value <= 33');
                 apiFanSpeed = '1';
-            } else if (value > 33 && value <= 67) {
-                this.platform.log.info('Fan Speed value <= 67');
+            } else if (value > 100 / 3 && value <= (100 / 3) * 2) {
+                this.platform.log.info('Fan Speed value <= 66');
                 apiFanSpeed = '2';
-            } else if (value > 67) {
-                this.platform.log.info('Fan Speed value > 67');
+            } else if (value > (100 / 3) * 2) {
+                this.platform.log.info('Fan Speed value > 66');
                 apiFanSpeed = '3';
             }
             this.platform.log.info('Fan Speed Value ->', value);
@@ -79,20 +81,21 @@ export class FanAccessory {
         if (this.platform.hub?.attributes.fanc == '0') {
             return 0;
         } else {
-            if (this.platform.lastHubState && new Date().getTime() - this.platform.lastHubState.getTime() > 60000) {
-                await this.platform.getStateForHub();
-            }
+            await this.platform.getStateForHub();
+            // if (this.platform.lastHubState && new Date().getTime() - this.platform.lastHubState.getTime() > 60000) {
+            //     await this.platform.getStateForHub();
+            // }
             const apiFanSpeed = this.platform.hub?.attributes.speedc;
             let fanSpeed: number;
             switch (apiFanSpeed) {
                 case '1':
-                    fanSpeed = 33;
+                    fanSpeed = 100 / 3;
                     break;
                 case '2':
-                    fanSpeed = 66;
+                    fanSpeed = (100 / 3) * 2;
                     break;
                 case '3':
-                    fanSpeed = 99;
+                    fanSpeed = 100;
                     break;
                 default:
                     fanSpeed = 0;
