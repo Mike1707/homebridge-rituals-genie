@@ -98,7 +98,7 @@ export class RitualsGeniePlatform implements DynamicPlatformPlugin {
         } else {
             this.log.info('Adding new accessory: Fan');
 
-            const accessory = new this.api.platformAccessory('Fan', uuid);
+            const accessory = new this.api.platformAccessory('Genie', uuid);
             accessory.context.displayName = this.config.name;
 
             new FanAccessory(this, accessory);
