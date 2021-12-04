@@ -35,6 +35,7 @@ export class FanAccessory {
                 minStep: 33,
                 minValue: 0,
                 maxValue: 99,
+                validValues: [0, 33, 66, 99],
             })
             .onSet(this.setFanSpeed.bind(this))
             .onGet(this.getFanSpeed.bind(this));
