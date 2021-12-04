@@ -32,8 +32,9 @@ export class FanAccessory {
 
         this.service.getCharacteristic(this.platform.Characteristic.RotationSpeed)
             .setProps({
+                minStep: 33,
                 minValue: 0,
-                maxValue: 100,
+                maxValue: 99,
             })
             .onSet(this.setFanSpeed.bind(this))
             .onGet(this.getFanSpeed.bind(this));
@@ -58,13 +59,13 @@ export class FanAccessory {
         this.platform.log.info('Fan Speed Value Start ->', value);
         if (this.platform.hub?.attributes.fanc == '1') {
             let apiFanSpeed = this.platform.hub?.attributes.speedc ?? '1';
-            if (value <= 34) {
+            if (value <= 33) {
                 this.platform.log.info('Fan Speed value <= 33');
                 apiFanSpeed = '1';
-            } else if (value > 34 && value <= 67) {
+            } else if (value > 33 && value <= 66) {
                 this.platform.log.info('Fan Speed value between 33 and 67');
                 apiFanSpeed = '2';
-            } else if (value > 67) {
+            } else if (value > 66) {
                 this.platform.log.info('Fan Speed value > 67');
                 apiFanSpeed = '3';
             }
@@ -87,13 +88,13 @@ export class FanAccessory {
             let fanSpeed: number;
             switch (apiFanSpeed) {
                 case '1':
-                    fanSpeed = 100 / 3;
+                    fanSpeed = 33;
                     break;
                 case '2':
-                    fanSpeed = (100 / 3) * 2;
+                    fanSpeed = 66;
                     break;
                 case '3':
-                    fanSpeed = 100;
+                    fanSpeed = 99;
                     break;
                 default:
                     fanSpeed = 0;
