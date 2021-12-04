@@ -58,10 +58,10 @@ export class FanAccessory {
         this.platform.log.info('Fan Speed Value Start ->', value);
         if (this.platform.hub?.attributes.fanc == '1') {
             let apiFanSpeed = this.platform.hub?.attributes.speedc ?? '1';
-            if (value <= 33) {
+            if (value <= 34) {
                 this.platform.log.info('Fan Speed value <= 33');
                 apiFanSpeed = '1';
-            } else if (value > 33 && value <= 67) {
+            } else if (value > 34 && value <= 67) {
                 this.platform.log.info('Fan Speed value between 33 and 67');
                 apiFanSpeed = '2';
             } else if (value > 67) {
